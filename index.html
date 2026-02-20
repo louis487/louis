@@ -33,7 +33,7 @@
     }
     #logo {
       margin-top: 15px;
-      height: 50px;
+      height: 60px;
       display: none;
     }
     footer {
@@ -43,10 +43,12 @@
     .campaign-name span:first-child {
       color: gold;
       font-weight: bold;
+      font-size: 18px;
     }
     .campaign-name span:not(:first-child) {
       color: red;
       font-weight: bold;
+      font-size: 18px;
     }
     .campaigns {
       display: flex;
@@ -62,7 +64,7 @@
     <button onclick="validateCard()">Validate</button>
   </div>
   <div id="result"></div>
-  <img id="logo" src="" alt="Card Logo">
+  <div id="logo"></div>
 
   <!-- Footer with campaign names -->
   <footer>
@@ -103,14 +105,29 @@
         result.innerText = "✅ Valid card number";
         let type = getCardType(number);
         if (type) {
-          logo.src = "images/" + type + ".png"; // Make sure these files exist in /images/
           logo.style.display = "block";
+          switch(type) {
+            case "visa":
+              logo.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="60" viewBox="0 0 512 512"><rect width="512" height="512" fill="#fff"/><text x="50%" y="55%" font-size="120" font-family="Arial" fill="#1a1f71" text-anchor="middle">VISA</text></svg>`;
+              break;
+            case "mastercard":
+              logo.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="60" viewBox="0 0 512 512"><circle cx="200" cy="256" r="100" fill="#eb001b"/><circle cx="312" cy="256" r="100" fill="#f79e1b" fill-opacity="0.8"/></svg>`;
+              break;
+            case "amex":
+              logo.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="60" viewBox="0 0 512 512"><rect width="512" height="512" fill="#2e77bc"/><text x="50%" y="55%" font-size="80" font-family="Arial" fill="#fff" text-anchor="middle">AMEX</text></svg>`;
+              break;
+            case "discover":
+              logo.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="60" viewBox="0 0 512 512"><rect width="512" height="512" fill="#fff"/><text x="50%" y="55%" font-size="70" font-family="Arial" fill="#ff6000" text-anchor="middle">DISCOVER</text></svg>`;
+              break;
+          }
         } else {
           logo.style.display = "none";
+          logo.innerHTML = "";
         }
       } else {
         result.innerText = "❌ Invalid card number";
         logo.style.display = "none";
+        logo.innerHTML = "";
       }
     }
   </script>

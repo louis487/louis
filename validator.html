@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Card Validator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    input { padding: 8px; width: 250px; }
+    button { padding: 8px 12px; margin-left: 10px; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Simple Card Validator</h2>
+  <input type="text" id="cardNumber" placeholder="Enter card number">
+  <button onclick="validateCard()">Validate</button>
+  <div id="result"></div>
+
+  <script>
+    function validateCard() {
+      let number = document.getElementById("cardNumber").value.replace(/\D/g, "");
+      let sum = 0, shouldDouble = false;
+
+      for (let i = number.length - 1; i >= 0; i--) {
+        let digit = parseInt(number.charAt(i));
+        if (shouldDouble) {
+          digit *= 2;
+          if (digit > 9) digit -= 9;
+        }
+        sum += digit;
+        shouldDouble = !shouldDouble;
+      }
+
+      document.getElementById("result").innerText =
+        (sum % 10 === 0) ? "✅ Valid card number" : "❌ Invalid card number";
+    }
+  </script>
+</body>
+</html>
